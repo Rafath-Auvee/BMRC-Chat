@@ -1,8 +1,10 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB3gT3Vbina_b0kAHSrAT2SsPVmvCHXaz8",
   authDomain: "bmrc-chat.firebaseapp.com",
+  databaseURL: "https://bmrc-chat.firebaseio.com",
   projectId: "bmrc-chat",
   storageBucket: "bmrc-chat.appspot.com",
   messagingSenderId: "356624821473",
@@ -10,3 +12,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+export default auth
