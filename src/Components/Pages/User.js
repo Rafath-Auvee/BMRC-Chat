@@ -1,31 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { onSnapshot, doc } from "firebase/firestore";
+import { db } from "../../firebase.init.js";
+import Img from "../Assets/img.webp";
+const User = ({ user1, user, selectUser, chat }) => {
+  const user2 = user?.uid;
+  const [data, setData] = useState("");
 
-const User = () => {
+  useEffect(() => {
+    const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+    let unsub = onSnapshot(doc(db, "lastMsg", id), (doc) => {
+      setData(doc.data());
+    });
+    return () => unsub();
+  }, []);
+
   return (
-    <div>
-      <div className="drawer drawer-mobile">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center">
-          <label
-            for="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
-          >
-            Open drawer
-          </label>
+    <>
+      <div
+        className={`user_wrapper ${chat.name === user.name && "selected_user"}`}
+        onClick={() => selectUser(user)}
+      >
+        <div className="user_info">
+          <div className="user_detail">
+            <img src={user.avatar || Img} alt="avatar" className="avatar" />
+            <h4>{user.name}</h4>
+            {data?.from !== user1 && data?.unread && (
+              <small className="unread">New</small>
+            )}
+          </div>
+          <div
+            className={`user_status ${user.isOnline ? "online" : "offline"}`}
+          ></div>
         </div>
-        <div className="drawer-side">
-          <label for="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
-            <li>
-              <a>Sidebar Item 1</a>
-            </li>
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
-          </ul>
-        </div>
+        {data && (
+          <p className="truncate">
+            <strong>{data.from === user1 ? "Me:" : null}</strong>
+            {data.text}
+          </p>
+        )}
       </div>
-    </div>
+      <div
+        onClick={() => selectUser(user)}
+        className={`sm_container ${chat.name === user.name && "selected_user"}`}
+      >
+        <img
+          src={user.avatar || Img}
+          alt="avatar"
+          className="avatar sm_screen"
+        />
+      </div>
+    </>
   );
 };
 
