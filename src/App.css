@@ -125,11 +125,14 @@ section .form {
   grid-template-columns: 1fr 3fr;
   overflow: hidden;
   height: calc(100vh - 70px);
+  
+  border-top: 2px solid var(--color-6);
   width: 100vw;
 }
 .users_container {
   margin-top: 10px;
   border-right: 2px solid var(--color-6);
+  /* border-top: 2px solid var(--color-6); */
   overflow-y: auto;
 }
 .user_wrapper {
@@ -141,6 +144,7 @@ section .form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 2px 2px solid var(--color-6);
 }
 .user_detail {
   display: flex;
@@ -234,9 +238,11 @@ section .form {
 }
 .friend {
   background: var(--color-6);
+  color: white
 }
 .selected_user {
   background: var(--color-6);
+  color: white
 }
 .truncate {
   font-size: 14px;

@@ -13,9 +13,12 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
-import User from "../Pages/User.js";
 
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import User from "./User";
+import MessageForm from "./MessageForm";
+import Message from "./Message";
+
 
 const Chatroom = () => {
   const [users, setUsers] = useState([]);
@@ -146,4 +149,4 @@ const Chatroom = () => {
   );
 };
 
-export default Home;
+export default Chatroom;
