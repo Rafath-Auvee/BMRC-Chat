@@ -8,8 +8,12 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 
-import auth from "../../firebase.init.js";
+import { auth, db, storage } from "../../firebase.init.js";
 import Loading from "../Shared/Loading.js";
+
+import { setDoc, doc, Timestamp } from "firebase/firestore";
+import { useHistory } from "react-router-dom";
+
 // import useToken from "../hooks/useToken.js";
 const SignUp = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -24,7 +28,7 @@ const SignUp = () => {
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
   // const [token]  = useToken(user || gUser);
-
+  // const history = useHistory();
   const navigate = useNavigate();
 
   let signInError;
@@ -38,14 +42,39 @@ const SignUp = () => {
   }
 
   if (user || gUser) {
+
+    if(user)
+    {
+      setDoc(doc(db, "users", user.user.uid), {
+        uid: user.user.uid,
+        name: user.user.displayName,
+        email: user.user.email,
+        createdAt: Timestamp.fromDate(new Date()),
+        isOnline: true,
+      });
+    }
+    else if(gUser)
+    {
+      setDoc(doc(db, "users", gUser.gUser.uid), {
+        uid: gUser.user.uid,
+        name: gUser.user.displayName,
+        email: gUser.user.email,
+        createdAt: Timestamp.fromDate(new Date()),
+        isOnline: true,
+      });
+    }
+    
       navigate('/');
   }
 
   const onSubmit = async data => {
       await createUserWithEmailAndPassword(data.email, data.password);
       await updateProfile({ displayName: data.name });
-      //console.log('update done');
-      
+      // console.log(data.user.uid);
+      // console.log(data.name);
+      // console.log(data.email);
+
+
   }
 
   return (
@@ -194,12 +223,12 @@ const SignUp = () => {
               </div>
               <div className="divider"></div>
               <div className="flex items-center justify-center">
-                <button
+                {/* <button
                   onClick={() => signInWithGoogle()}
                   className="btn btn-outline flex items-center justify-center "
                 >
                   Continue with Google
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

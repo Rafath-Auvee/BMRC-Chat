@@ -5,6 +5,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Pages/Home";
 import SignIn from "./Components/Pages/SignIn";
 import SignUp from "./Components/Pages/SignUp";
+import Chatroom from "./Components/Pages/Chatroom";
+import RequireAuth from "./Components/Shared/RequiredAuth";
+import Profile from "./Components/Profile/Profile";
 
 function App() {
   return (
@@ -12,6 +15,15 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home></Home>} />
+        <Route
+          path="/room"
+          element={
+            <RequireAuth>
+              <Chatroom></Chatroom>
+            </RequireAuth>
+          }
+        />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<SignIn></SignIn>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
       </Routes>

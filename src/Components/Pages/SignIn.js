@@ -5,8 +5,8 @@ import {
 } from "react-firebase-hooks/auth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
-import auth from "../../firebase.init.js";
+import { updateDoc, doc } from "firebase/firestore";
+import { auth, db, storage } from "../../firebase.init.js";
 import Loading from "../Shared/Loading.js";
 
 const SignIn = () => {
@@ -28,9 +28,12 @@ const SignIn = () => {
 
   useEffect(() => {
     if (user || gUser) {
-      navigate(from, { replace: true });
+      updateDoc(doc(db, "users", user.user.uid), {
+        isOnline: true,
+      });
+      navigate("/");
     }
-  }, [from, navigate]);
+  }, [user]);
 
   if (loading || gLoading) {
     return <Loading></Loading>;
@@ -44,13 +47,36 @@ const SignIn = () => {
     );
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     signInWithEmailAndPassword(data.email, data.password);
   };
 
-  if (user || gUser) {
-    navigate("/");
-  }
+  // if (user || gUser) {
+  //   updateDoc(doc(db, "users", user.user.uid), {
+  //     isOnline: true,
+  //   });
+  //   navigate('/');
+  // }
+
+  // if (user || gUser) {
+  //   if(user)
+  //   {
+  //     console.log(user.user.uid)
+  //     updateDoc(doc(db, "users", user.user.uid), {
+  //       isOnline: true,
+  //     });
+  //   }
+  //   else if(gUser)
+  //   {
+  //     console.log(gUser.user.uid)
+  //     updateDoc(doc(db, "users", gUser.user.uid), {
+  //       isOnline: true,
+  //     });
+  //   }
+  //   else{
+  //     console.log("Not Happened")
+  //   }
+  // }
 
   return (
     <div className="bg-no-repeat  opacity-75 inset-0 z-0 bg-cover bg-center relative">
@@ -190,12 +216,12 @@ const SignIn = () => {
             </form>
             <div className="mt-2 divider divide-black"></div>
             <div className="flex items-center justify-center">
-              <button
+              {/* <button
                 onClick={() => signInWithGoogle()}
                 className="btn btn-outline"
               >
                 Continue with Google
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

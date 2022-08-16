@@ -2,13 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../../firebase.init.js";
+import { auth, db, storage } from "../../firebase.init.js";
+
+import { updateDoc, doc } from "firebase/firestore";
+import { AuthContext } from "../Context/Auth.js";
+// import { useHistory } from "react-router-dom";
+
+
 // import logo from "../../image/logo.png";
 const Navbar = () => {
   const [user] = useAuthState(auth);
+  // const history = useHistory();
+  const logout = async () => {
+    await updateDoc(doc(db, "users", auth.currentUser.uid), {
+      isOnline: false,
+    });
 
-  const logout = () => {
-    signOut(auth);
+    await signOut(auth);
+    // history.replace("/login");
   };
 
   const userMenu = (
@@ -16,15 +27,25 @@ const Navbar = () => {
       <li>
         <Link to="/">Home</Link>
       </li>
+      <li>
+        <Link to="/room">Chat Room</Link>
+      </li>
+      {
+        user &&(
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+        )
+      }
       {!user && (
-        <ul className="flex flex-col md:flex-row">
+        <>
           <li>
             <Link to="/login">Login</Link>
           </li>
           <li>
             <Link to="/signup">Sign Up</Link>
           </li>
-        </ul>
+        </>
       )}
     </>
   );
