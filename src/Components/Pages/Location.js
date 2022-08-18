@@ -30,7 +30,7 @@ const Location = () => {
 
   return (
     <div className="flex justify-center">
-      <LoadScript googleMapsApiKey='process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY'>
+      <LoadScript googleMapsApiKey="AIzaSyDpFSETgCb8_yS1Xcv2uKeLZmv_GPqRuXk">
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
           {/* Child components, such as markers, info windows, etc. */}
           <></>

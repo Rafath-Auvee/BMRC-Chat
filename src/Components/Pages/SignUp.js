@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import Zoom from "react-reveal/Zoom";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -17,13 +17,13 @@ import { useHistory } from "react-router-dom";
 // import useToken from "../hooks/useToken.js";
 const SignUp = () => {
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-  const { register, formState: { errors }, handleSubmit } = useForm();
-  const [
-      createUserWithEmailAndPassword,
-      user,
-      loading,
-      error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
 
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
@@ -31,56 +31,96 @@ const SignUp = () => {
   // const history = useHistory();
   const navigate = useNavigate();
 
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [place, setPlace] = useState("");
+
+  var api_key = "1457682e45754a919897779ad7ebeb78";
+
+  var api_url = "https://api.opencagedata.com/geocode/v1/json";
+
+  var request_url =
+    api_url +
+    "?" +
+    "key=" +
+    api_key +
+    "&q=" +
+    encodeURIComponent(latitude + "," + longitude) +
+    "&pretty=1" +
+    "&no_annotations=1";
+
+  fetch(request_url)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.results[0].formatted);
+      setPlace(data.results[0].formatted);
+    });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const lati = position.coords.latitude;
+      const long = position.coords.longitude;
+      setLatitude(lati);
+      setLongitude(long);
+      // return lati, long
+    });
+  }, []);
+
   let signInError;
 
   if (loading || gLoading || updating) {
-      return <Loading></Loading>
+    return <Loading></Loading>;
   }
 
   if (error || gError || updateError) {
-      signInError = <p className='text-red-500'><small>{error?.message || gError?.message || updateError?.message}</small></p>
+    signInError = (
+      <p className="text-red-500">
+        <small>
+          {error?.message || gError?.message || updateError?.message}
+        </small>
+      </p>
+    );
   }
 
   if (user || gUser) {
-
-    if(user)
-    {
+    if (user) {
       setDoc(doc(db, "users", user.user.uid), {
         uid: user.user.uid,
         name: user.user.displayName,
         email: user.user.email,
+        lat: latitude,
+        long: longitude,
+        location: place,
         createdAt: Timestamp.fromDate(new Date()),
         isOnline: true,
       });
-    }
-    else if(gUser)
-    {
+    } else if (gUser) {
       setDoc(doc(db, "users", gUser.gUser.uid), {
         uid: gUser.user.uid,
         name: gUser.user.displayName,
         email: gUser.user.email,
+        lat: latitude,
+        long: longitude,
+        location: place,
         createdAt: Timestamp.fromDate(new Date()),
         isOnline: true,
       });
     }
-    
-      navigate('/');
+
+    navigate("/");
   }
 
-  const onSubmit = async data => {
-      await createUserWithEmailAndPassword(data.email, data.password);
-      await updateProfile({ displayName: data.name });
-      // console.log(data.user.uid);
-      // console.log(data.name);
-      // console.log(data.email);
-
-
-  }
+  const onSubmit = async (data) => {
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
+    // console.log(data.user.uid);
+    // console.log(data.name);
+    // console.log(data.email);
+  };
 
   return (
-    
-      <div className="bg-no-repeat bg-cover bg-center relative">
-        <div className="absolute  opacity-75 inset-0 z-0"></div>
+    <div className="bg-no-repeat bg-cover bg-center relative">
+      <div className="absolute  opacity-75 inset-0 z-0">
         <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center">
           <div className="flex-col flex  self-center p-10 sm:max-w-5xl xl:max-w-2xl  z-10">
             <div className="self-start hidden lg:flex flex-col  text-base-content">
@@ -234,7 +274,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-    
+    </div>
   );
 };
 

@@ -18,6 +18,8 @@ const Message = ({ msg, user1 }) => {
         <br />
         <small>
           <Moment fromNow>{msg.createdAt.toDate()}</Moment>
+          <br />
+          <p>{msg.location}</p>
         </small>
       </p>
     </div>

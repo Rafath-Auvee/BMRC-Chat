@@ -14,20 +14,67 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
+
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import User from "./User";
 import MessageForm from "./MessageForm";
 import Message from "./Message";
-
+import { ToastContainer, toast } from "react-toastify";
 
 const Chatroom = () => {
+
+
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
   const [msgs, setMsgs] = useState([]);
+  const [myac, setMyac] = useState([]);
+
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [place, setPlace] = useState("");
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      const lati = position.coords.latitude;
+      const long = position.coords.longitude;
+      setLatitude(lati);
+      setLongitude(long);
+
+      // return lati, long
+    });
+  }, []);
+
+  var api_key = "1457682e45754a919897779ad7ebeb78";
+
+  var api_url = "https://api.opencagedata.com/geocode/v1/json";
+
+  var request_url =
+    api_url +
+    "?" +
+    "key=" +
+    api_key +
+    "&q=" +
+    encodeURIComponent(latitude + "," + longitude) +
+    "&pretty=1" +
+    "&no_annotations=1";
 
   const user1 = auth.currentUser.uid;
+
+  const successfulLookup = () => {
+    // const { latitude, longitude } = position.coords;
+    fetch(request_url)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.results[0].formatted);
+        setPlace(data.results[0].formatted);
+      });
+  };
 
   useEffect(() => {
     const usersRef = collection(db, "users");
@@ -44,9 +91,19 @@ const Chatroom = () => {
     return () => unsub();
   }, []);
 
+  // useEffect(() => {
+  //   if (user) {
+  //     setMyac(user);
+  //     console.log(user)
+  //   }
+  // }, [user]);
+
   const selectUser = async (user) => {
     setChat(user);
 
+    setInterval( () => {
+      toast(`${chat.name} - ${chat.location}`);
+    }, 5000);
     const user2 = user.uid;
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
@@ -61,6 +118,8 @@ const Chatroom = () => {
       setMsgs(msgs);
     });
 
+
+
     // get last message b/w logged in user and selected user
     const docSnap = await getDoc(doc(db, "lastMsg", id));
     // if last message exists and message is from selected user
@@ -68,12 +127,22 @@ const Chatroom = () => {
       // update last message doc, set unread to false
       await updateDoc(doc(db, "lastMsg", id), { unread: false });
     }
+    // setChat("");
   };
+
+  // fetch(request_url)
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data.results[0].formatted);
+  //     setPlace(data.results[0].formatted);
+  //   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user2 = chat.uid;
+
+    
 
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
@@ -94,6 +163,7 @@ const Chatroom = () => {
       to: user2,
       createdAt: Timestamp.fromDate(new Date()),
       media: url || "",
+      location: place,
     });
 
     await setDoc(doc(db, "lastMsg", id), {
@@ -107,7 +177,9 @@ const Chatroom = () => {
 
     setText("");
     setImg("");
+    setPlace("");
   };
+
   return (
     <div className="home_container">
       <div className="users_container">
@@ -139,6 +211,7 @@ const Chatroom = () => {
               text={text}
               setText={setText}
               setImg={setImg}
+              setPlace={setPlace}
             />
           </>
         ) : (

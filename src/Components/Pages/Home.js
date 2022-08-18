@@ -5,6 +5,7 @@ import Location from "./Location.js";
 const Home = () => {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [place, setPlace] = useState("");
 
   const defaultProps = {
     center: {
@@ -37,16 +38,35 @@ const Home = () => {
   console.log("Latitude is :", latitude);
   console.log("Longitude is :", longitude);
 
+  var api_key = "1457682e45754a919897779ad7ebeb78";
+
+  var api_url = "https://api.opencagedata.com/geocode/v1/json";
+
+  var request_url =
+    api_url +
+    "?" +
+    "key=" +
+    api_key +
+    "&q=" +
+    encodeURIComponent(latitude + "," + longitude) +
+    "&pretty=1" +
+    "&no_annotations=1";
+
+  const successfulLookup = () => {
+    // const { latitude, longitude } = position.coords;
+    fetch(request_url)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.results[0].components);
+        // setPlace(data.results[0])
+      });
+  };
   // https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=YOUR_API_KEY&signature=YOUR_SIGNATURE
 
   return (
     <div>
-      {/* <Location/> */}
-      <div className="text-center">
-        <p>Latitude: {latitude}</p>
-        <p>Longitude: {longitude}</p>
-        <Location/>
-      </div>
+      <button onClick={() => successfulLookup()}>Click Here</button>
+      <p>Place: {place}</p>
     </div>
   );
 };
