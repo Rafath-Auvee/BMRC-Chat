@@ -10,6 +10,9 @@ import RequireAuth from "./Components/Shared/RequiredAuth";
 import Profile from "./Components/Profile/Profile";
 // import toast, { Toaster } from "react-hot-toast";
 import { ToastContainer, toast } from 'react-toastify';
+import ManageNews from "./Components/News/ManageNews";
+import NewsCard from "./Components/News/NewsCard";
+import Newsform from "./Components/News/Newsform";
 
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<SignIn></SignIn>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
+        <Route path="/managenews" element={<ManageNews/>}/>
+        <Route path='/news' element={<NewsCard/>}/>
+        <Route path="/addnews" element={<Newsform/>}/>
       </Routes>
       {/* <Toaster position="top-right" reverseOrder={true} /> */}
       <ToastContainer limit={5} />

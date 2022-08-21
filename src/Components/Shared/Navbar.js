@@ -30,6 +30,9 @@ const Navbar = () => {
       <li>
         <Link to="/room">Chat Room</Link>
       </li>
+      <li>
+        <Link to="/news">News</Link>
+      </li>
       {
         // user &&(
         //   <li>
@@ -67,7 +70,14 @@ const Navbar = () => {
           // <Link to="/signup">Sign Up</Link>
         )}
       </li>
-      {user && <></>}
+      {user && <>
+          <li>
+            <Link to="/managenews">Manage News</Link>
+          </li>
+          <li>
+            <Link to="/addnews">Add News</Link>
+          </li>
+          </>}
 
       {/* <button
         className="btn bg-neutral text-base-100 hover:text-neutral btn-ghost"
