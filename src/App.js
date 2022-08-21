@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./Components/Shared/Navbar";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Components/Pages/Home";
+import Home from "./Components/Pages/Home/Home";
 import SignIn from "./Components/Pages/SignIn";
 import SignUp from "./Components/Pages/SignUp";
 import Chatroom from "./Components/Pages/Chatroom";
