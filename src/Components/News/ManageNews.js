@@ -7,7 +7,8 @@ const ManageNews = () => {
     const navigate = useNavigate();
   
     const navigateToUpdate = (id) => {
-      navigate(`/update/${id}`);
+      alert('we are working on it')
+      navigate(``);
     };
     const [tasks, setTasks] = useState([]);
     const [user] = useAuthState(auth);
