@@ -63,7 +63,7 @@ const ManageNews = () => {
                   <tr class="hover">
                     <th>{index + 1}</th>
                     <td>{task.name}</td>
-                    <td>{task.news}</td>
+                    <td >{task.news.slice(0,25)}...</td>
                     <td>
                       <div class="btn-group">
                         {" "}
