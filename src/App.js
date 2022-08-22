@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import ManageNews from "./Components/News/ManageNews";
 import NewsCard from "./Components/News/NewsCard";
 import Newsform from "./Components/News/Newsform";
+import NewsDescription from "./Components/News/NewsDescription";
 
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
         <Route path="/managenews" element={<ManageNews/>}/>
         <Route path='/news' element={<NewsCard/>}/>
         <Route path="/addnews" element={<Newsform/>}/>
+        <Route
+              path="/newsdescription/:id"
+              element={<NewsDescription />}
+            />
       </Routes>
       {/* <Toaster position="top-right" reverseOrder={true} /> */}
       <ToastContainer limit={5} />

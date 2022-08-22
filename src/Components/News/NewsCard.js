@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './NewsCard.css'
 import Img from "../Assets/img.webp"
+import { useNavigate } from 'react-router-dom';
 function NewsCard() {
     const [news, setNews] = useState([]);
     useEffect(() => {
@@ -24,6 +25,10 @@ function NewsCard() {
                 // }
             })
     }
+    const navigate = useNavigate();
+    const navigateToDescription = id =>{
+      navigate(`/newsdescription/${id}`);
+  }
 
     console.log(news)
     return (
@@ -52,11 +57,12 @@ function NewsCard() {
           <img class="w-10 h-10 rounded-full mr-4" src={Img} alt="Avatar of Writer"/>
           <div class="text-sm">
             <p class="text-gray-900 leading-none">User01</p>
-            <p class="text-gray-600">Aug 18, 2022</p>
+            <p class="text-gray-600">{singleNews.date}</p>
           </div>
         </div>
       </div>
     </div>
+    <button onClick={() => navigateToDescription(singleNews._id)}  className="btn btn-primary w-full">Show more</button>
   </div>
                     )
                 })
