@@ -31,11 +31,11 @@ const Navbar = () => {
         <Link to="/room">Chat Room</Link>
       </li>
       {
-        // user &&(
-        //   <li>
-        //     <Link to="/profile">Profile</Link>
-        //   </li>
-        // )
+        user &&(
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+        )
       }
       {!user && (
         <>

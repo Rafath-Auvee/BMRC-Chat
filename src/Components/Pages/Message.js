@@ -19,7 +19,7 @@ const Message = ({ msg, user1 }) => {
         <small>
           <Moment fromNow>{msg.createdAt.toDate()}</Moment>
           <br />
-          <p>{msg.location}</p>
+          {/* <p>{msg.location}</p> */}
         </small>
       </p>
     </div>
