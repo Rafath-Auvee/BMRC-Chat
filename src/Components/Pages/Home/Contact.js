@@ -1,28 +1,28 @@
 import React, { useState } from "react";
-import emailjs from "@emailjs/browser";
+// import emailjs from "@emailjs/browser";
 const Contact = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const sendEmail = (e) => {
-    e.preventDefault();
+  // const sendEmail = (e) => {
+  //   e.preventDefault();
 
-    emailjs
-      .sendForm(
-        "service_bxyz292",
-        "template_66cbsae",
-        e.target,
-        "236udK2u7CF43YT5D"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-    e.target.reset();
-  };
+  //   emailjs
+  //     .sendForm(
+  //       "service_bxyz292",
+  //       "template_66cbsae",
+  //       e.target,
+  //       "236udK2u7CF43YT5D"
+  //     )
+  //     .then(
+  //       (result) => {
+  //         console.log(result.text);
+  //       },
+  //       (error) => {
+  //         console.log(error.text);
+  //       }
+  //     );
+  //   e.target.reset();
+  // };
 
   return (
     <div className={`max-w-screen-md mx-auto p-5 mt-6 pt-6   `}>
@@ -38,7 +38,7 @@ const Contact = () => {
 
       <form
         className={`w-full ${isDarkMode ? "text-white" : "text-black"}`}
-        onSubmit={sendEmail}
+        // onSubmit={sendEmail}
       >
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
