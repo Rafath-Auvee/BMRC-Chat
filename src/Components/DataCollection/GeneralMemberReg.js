@@ -53,12 +53,7 @@ const GeneralMemberReg = () => {
             designation: "General Member",
             url: image,
           };
-          axios.post(`https://bmrc-server.vercel.app/generalmember`, {
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(product),
-          })
+          axios.post(`https://bmrc-server.vercel.app/generalmember`,product)
             .then((res) => {
               //console.log(inserted);
               console.log(res);
