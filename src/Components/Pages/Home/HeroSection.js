@@ -3,7 +3,7 @@ import React from "react";
 const HeroSection = () => {
   return (
     <div>
-      <section className="px-2 py-32  md:px-0">
+      <div className="px-2 py-32  md:px-0">
         <div className="container items-center  px-8 xl:px-5">
           <div className="flex flex-wrap sm:-mx-3">
             <div className="w-full md:w-1/2 md:px-3">
@@ -54,7 +54,7 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
