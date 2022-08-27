@@ -36,7 +36,7 @@ const GeneralMemberReg = () => {
       method: "POST",
       body: formData,
     })
-      .then((res) => res.json())
+      .then((res) =>  res.json())
       .then((result) => {
         if (result.success) {
           const image = result.data.url;
@@ -63,7 +63,7 @@ const GeneralMemberReg = () => {
               //console.log(inserted);
               if (inserted.acknowledged) {
                 console.log(product);
-                toast.success("Thanks. added successfully");
+                 toast.success("Thanks. added successfully");
                 reset();
               } else {
                 toast.error("Failed");
@@ -78,7 +78,7 @@ const GeneralMemberReg = () => {
   return (
     <div>
       <h1 className="text-2xl font-serif font-bold text-center">
-        My Informations
+        General Member Informations
       </h1>
       <div className="bg-transparent mx-auto max-w-xs mb-5 rounded-2xl w-100 ">
         <form onSubmit={handleSubmit(onSubmit)}>
