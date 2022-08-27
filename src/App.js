@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./Components/Shared/Navbar";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Components/Pages/Home";
+import Home from "./Components/Pages/Home/Home";
 import SignIn from "./Components/Pages/SignIn";
 import SignUp from "./Components/Pages/SignUp";
 import Chatroom from "./Components/Pages/Chatroom";
@@ -10,6 +10,10 @@ import RequireAuth from "./Components/Shared/RequiredAuth";
 import Profile from "./Components/Profile/Profile";
 // import toast, { Toaster } from "react-hot-toast";
 import { ToastContainer, toast } from 'react-toastify';
+import ManageNews from "./Components/News/ManageNews";
+import NewsCard from "./Components/News/NewsCard";
+import Newsform from "./Components/News/Newsform";
+import NewsDescription from "./Components/News/NewsDescription";
 
 
 function App() {
@@ -29,6 +33,13 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<SignIn></SignIn>} />
         <Route path="/signup" element={<SignUp></SignUp>} />
+        <Route path="/managenews" element={<ManageNews/>}/>
+        <Route path='/news' element={<NewsCard/>}/>
+        <Route path="/addnews" element={<Newsform/>}/>
+        <Route
+              path="/newsdescription/:id"
+              element={<NewsDescription />}
+            />
       </Routes>
       {/* <Toaster position="top-right" reverseOrder={true} /> */}
       <ToastContainer limit={5} />

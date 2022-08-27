@@ -1,6 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Location from "./Location.js";
+import Location from "../Location.js";
+import Contact from "./Contact.js";
+import EventSection from "./EventSection.js";
+import HeroSection from "./HeroSection.js";
 
 const Home = () => {
   const [latitude, setLatitude] = useState("");
@@ -31,10 +34,8 @@ const Home = () => {
       const long = position.coords.longitude;
       setLatitude(lati);
       setLongitude(long);
-      // return lati, long
     });
   }, []);
-  // console.log(latitude)
   console.log("Latitude is :", latitude);
   console.log("Longitude is :", longitude);
 
@@ -65,8 +66,9 @@ const Home = () => {
 
   return (
     <div>
-      <button onClick={() => successfulLookup()}>Click Here</button>
-      <p>Place: {place}</p>
+      <HeroSection/>
+      <EventSection/>
+      <Contact/>
     </div>
   );
 };

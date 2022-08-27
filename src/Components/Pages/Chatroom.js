@@ -101,9 +101,6 @@ const Chatroom = () => {
   const selectUser = async (user) => {
     setChat(user);
 
-    // setInterval( () => {
-    //   toast(`${user.name} - ${user.location}`);
-    // }, 5000);
     const user2 = user.uid;
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
