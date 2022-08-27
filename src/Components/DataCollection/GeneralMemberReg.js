@@ -5,7 +5,7 @@ import { auth } from '../../firebase.init';
 
 
 
-const MyProfile = () => {
+const GeneralMemberReg = () => {
     const [user] = useAuthState(auth)
     const [updateUser,setUpdateUser] = useState([])
    
@@ -16,10 +16,14 @@ const MyProfile = () => {
             id:data?.id,
             name:data?.name,
             email: data?.email,
-            address: data?.address,
             phone: data?.phone,
             department: data?.department,
-            designation: data?.designation
+            level: data?.level,
+            term: data?.term,
+            designation: 'General Member',
+
+            
+
         }
         console.log(currentUser);
         
@@ -74,14 +78,37 @@ const MyProfile = () => {
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
-                            <span className="label-text">Address</span>
+                            <span className="label-text">Level</span>
                         </label>
                         <input
                             type="text"
-                            value={updateUser?.address}
+                            value={updateUser?.level}
                             className="input input-bordered w-full max-w-xs"
-                            {...register("address")}
+                            {...register("level")}
                         />
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Term</span>
+                        </label>
+                        <input
+                            type="text"
+                            value={updateUser?.term}
+                            className="input input-bordered w-full max-w-xs"
+                            {...register("term")}
+                        />
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Department</span>
+                        </label>
+                        <input
+                            type="text"
+                            value={updateUser?.department}
+                            className="input input-bordered w-full max-w-xs"
+                            {...register("department")}
+                        />
+
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
@@ -106,30 +133,6 @@ const MyProfile = () => {
                         />
 
                     </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label">
-                            <span className="label-text">Department</span>
-                        </label>
-                        <input
-                            type="text"
-                            value={updateUser?.department}
-                            className="input input-bordered w-full max-w-xs"
-                            {...register("department")}
-                        />
-
-                    </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label">
-                            <span className="label-text">Designation</span>
-                        </label>
-                        <input
-                            type="text"
-                            value={updateUser?.designation}
-                            className="input input-bordered w-full max-w-xs"
-                            {...register("designation")}
-                        />
-
-                    </div>
                     <input className='btn w-full max-w-xs my-5' type="submit" value="Update" />
                 </form>
             </div>
@@ -137,4 +140,4 @@ const MyProfile = () => {
     );
 };
 
-export default MyProfile;
+export default GeneralMemberReg;
