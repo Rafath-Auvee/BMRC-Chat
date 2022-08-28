@@ -51,7 +51,7 @@ const GeneralMemberReg = () => {
             designation: "General Member",
             url: image,
           };
-          fetch(`https://bmrc-server-hokqr2h9x-rafath-bin-zafar-auvee.vercel.app/generalmember`, {
+          fetch(`https://bmrc.onrender.com/generalmember`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
