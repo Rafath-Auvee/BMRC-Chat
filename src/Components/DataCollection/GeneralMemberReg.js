@@ -64,7 +64,7 @@ const GeneralMemberReg = () => {
               if (res.data.acknowledged) {
                 setAddloading(false);
                 toast.success("Thanks. added successfully");
-                // reset();
+                reset();
               } else {
                 setAddloading(false);
                 toast.error("Failed");
