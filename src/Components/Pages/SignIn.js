@@ -29,7 +29,7 @@ const SignIn = () => {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [place, setPlace] = useState("");
-  const [myip, setMyip] = useState("");
+  const [ip, setIp] = useState("");
 
   var api_key = "1457682e45754a919897779ad7ebeb78";
 
@@ -55,7 +55,7 @@ const SignIn = () => {
   fetch("https://api.db-ip.com/v2/free/self")
     .then((res) => res.json())
     .then((data) => {
-      setMyip(data.ipAddress);
+      setIp(data.ipAddress);
     });
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -74,7 +74,7 @@ const SignIn = () => {
         lat: latitude,
         long: longitude,
         location: place,
-        IP: myip,
+        IP: ip,
       });
       navigate("/");
     }
