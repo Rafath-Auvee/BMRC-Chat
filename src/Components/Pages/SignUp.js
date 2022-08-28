@@ -56,11 +56,13 @@ const SignUp = () => {
       console.log(data.results[0].formatted);
       setPlace(data.results[0].formatted);
     });
-  fetch("https://api.ipify.org/?foramt=json")
+
+  fetch("https://api.db-ip.com/v2/free/self")
     .then((res) => res.json())
     .then((data) => {
-      setIp(data.ip);
+      setIp(data.ipAddress);
     });
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       const lati = position.coords.latitude;
