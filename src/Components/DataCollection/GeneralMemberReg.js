@@ -3,6 +3,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { auth } from "../../firebase.init";
 import { toast } from "react-toastify";
+import axios from "axios";
+
 
 const GeneralMemberReg = () => {
   const [user] = useAuthState(auth);
@@ -51,6 +53,7 @@ const GeneralMemberReg = () => {
             designation: "General Member",
             url: image,
           };
+<<<<<<< HEAD
           fetch(`https://bmrc.onrender.com/generalmember`, {
             method: "POST",
             headers: {
@@ -60,13 +63,19 @@ const GeneralMemberReg = () => {
           })
             .then((res) => res.json())
             .then((inserted) => {
+=======
+          axios.post(`https://bmrc-server.vercel.app/generalmember`,product)
+            .then((res) => {
+>>>>>>> bc45c60696f7ef68104d9caac6841f49c02a0013
               //console.log(inserted);
-              if (inserted.acknowledged) {
-                console.log(product);
+              console.log(res);
+              if (res.data.acknowledged) {
+                
                  toast.success("Thanks. added successfully");
                 reset();
               } else {
                 toast.error("Failed");
+                
               }
             });
         }
