@@ -34,6 +34,7 @@ const SignUp = () => {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [place, setPlace] = useState("");
+  const [ip, setIp] = useState("");
 
   var api_key = "1457682e45754a919897779ad7ebeb78";
 
@@ -55,7 +56,11 @@ const SignUp = () => {
       console.log(data.results[0].formatted);
       setPlace(data.results[0].formatted);
     });
-
+  fetch("https://api.ipify.org/?foramt=json")
+    .then((res) => res.json())
+    .then((data) => {
+      setIp(data.ip);
+    });
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       const lati = position.coords.latitude;
@@ -91,6 +96,7 @@ const SignUp = () => {
         lat: latitude,
         long: longitude,
         location: place,
+        IP: ip,
         createdAt: Timestamp.fromDate(new Date()),
         isOnline: true,
       });
@@ -101,6 +107,7 @@ const SignUp = () => {
         email: gUser.user.email,
         lat: latitude,
         long: longitude,
+        IP: ip,
         location: place,
         createdAt: Timestamp.fromDate(new Date()),
         isOnline: true,
