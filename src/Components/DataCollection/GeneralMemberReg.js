@@ -83,7 +83,7 @@ const GeneralMemberReg = () => {
       ) : (
         <div>
           <h1 className="text-2xl font-serif font-bold text-center">
-            General Member Informations
+            Update Profile
           </h1>
           <div className="bg-transparent mx-auto max-w-xs mb-5 rounded-2xl w-100 ">
             <form onSubmit={handleSubmit(onSubmit)}>

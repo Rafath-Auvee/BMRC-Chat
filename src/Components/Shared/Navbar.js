@@ -33,9 +33,9 @@ const Navbar = () => {
       <li>
         <Link to="/news">News</Link>
       </li>
-      <li>
-        <Link to="/gmdata">Join BMRC</Link>
-      </li>
+      {/* <li>
+        <Link to="/gmdata">Update Profile</Link>
+      </li> */}
       {
         user &&(
           <li>
