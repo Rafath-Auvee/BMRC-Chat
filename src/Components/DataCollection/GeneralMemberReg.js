@@ -73,8 +73,8 @@ const GeneralMemberReg = () => {
         }
       });
 
-    console.log(currentUser);
-  };
+    };
+    console.log(user);
 
   return (
     <div>
@@ -93,8 +93,10 @@ const GeneralMemberReg = () => {
                 </label>
                 <input
                   type="text"
-                  value={updateUser?.name}
-                  className="input input-bordered w-full max-w-xs"
+                  disabled  
+                  value={user?.name}
+                  placeholder={user?.displayName}
+                  className="input input-bordered font-black w-full max-w-xs"
                   {...register("name", {
                     required: {
                       value: true,
@@ -167,22 +169,7 @@ const GeneralMemberReg = () => {
                   })}
                 />
               </div>
-              <div className="form-control w-full max-w-xs">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="text"
-                  value={updateUser?.email}
-                  className="input input-bordered w-full max-w-xs"
-                  {...register("email", {
-                    required: {
-                      value: true,
-                      message: "Email is Required",
-                    },
-                  })}
-                />
-              </div>
+
               <div className="form-control w-full max-w-xs mb-5">
                 <label className="label">
                   <span className="label-text">Phone</span>
@@ -199,32 +186,7 @@ const GeneralMemberReg = () => {
                   })}
                 />
               </div>
-              <div className="w-full md:w-96 md:max-w-full mx-auto">
-                <div className="p-6 border border-gray-300 sm:rounded-md">
-                  <label className="block mb-6">
-                    <span className="text-gray-700">Your photo</span>
-                    <input
-                      required
-                      name="photo"
-                      {...register("image", {
-                        required: {
-                          value: true,
-                          message: "Image is Required",
-                        },
-                      })}
-                      type="file"
-                      className="block w-full mt-1 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
-                  </label>
-                </div>
-              </div>
-              <label className="label">
-                {errors.image?.type === "required" && (
-                  <span className="label-text-alt text-red-500">
-                    {errors.image.message}
-                  </span>
-                )}
-              </label>
+
 
               {/* (
             // <div className="w-16 h-16 border-b-2 border-amber-900 rounded-full animate-spin mx-auto"></div>
