@@ -95,6 +95,7 @@ const Profile = () => {
         <div className="text_container">
           <h3>{user.name}</h3>
           <p>{user.email}</p>
+
           <hr />
           <small>Joined on: {user.createdAt.toDate().toDateString()}</small>
         </div>
