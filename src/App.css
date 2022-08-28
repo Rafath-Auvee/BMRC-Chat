@@ -144,7 +144,7 @@ section .form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px 2px solid var(--color-6);
+  /* border: 2px 2px solid var(--color-6); */
 }
 .user_detail {
   display: flex;
