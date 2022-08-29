@@ -24,6 +24,7 @@ const Profile = () => {
     getDoc(doc(db, "users", auth.currentUser.uid)).then((docSnap) => {
       if (docSnap.exists) {
         setUser(docSnap.data());
+        console.log();
       }
     });
 
