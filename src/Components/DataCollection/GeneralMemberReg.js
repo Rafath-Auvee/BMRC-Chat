@@ -4,11 +4,18 @@ import { useForm } from "react-hook-form";
 import { auth } from "../../firebase.init";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+import {storage} from '../../firebase.init'
 
 
 const GeneralMemberReg = () => {
   const [user] = useAuthState(auth);
   const [updateUser, setUpdateUser] = useState([]);
+
+  const [imageUrl,setImageUrl]=useState("")
+  const [data,setData] = useState([]);
+  const db = getFirestore()
 
   const {
     register,
@@ -16,9 +23,22 @@ const GeneralMemberReg = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const imgStorageKey = "f3f22ee15d3ef328ecec838de6b26a6d";
 
+  const handleFile=async(e)=>{
+    const image=data.image[0]
+    console.log(image);
+    const imageStorageRef=ref(storage,`avatar/${image.name}`);
+    console.log(imageStorageRef);
+    uploadBytesResumable(imageStorageRef,image)
+    .then(
+     ()=>{
+         getDownloadURL(imageStorageRef)
+         .then((url)=>setImageUrl(url))
+     }
+    )
+}
   const onSubmit = async (data) => {
+    
     const currentUser = {
       id: data?.id,
       name: data?.name,
@@ -28,50 +48,15 @@ const GeneralMemberReg = () => {
       level: data?.level,
       term: data?.term,
       designation: "General Member",
+      image:imageUrl
     };
+    
 
-    const image = data.image[0];
-    const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-    const formData = new FormData();
-    formData.append("image", image);
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) =>  res.json())
-      .then((result) => {
-        if (result.success) {
-          const image = result.data.url;
-          const product = {
-            id: data?.id,
-            name: data?.name,
-            email: data?.email,
-            phone: data?.phone,
-            department: data?.department,
-            level: data?.level,
-            term: data?.term,
-            designation: "General Member",
-            url: image,
-          };
-          axios.post(`https://bmrc-server.vercel.app/generalmember`,product)
-            .then((res) => {
-              //console.log(inserted);
-              console.log(res);
-              if (res.data.acknowledged) {
-                
-                 toast.success("Thanks. added successfully");
-                reset();
-              } else {
-                toast.error("Failed");
-                
-              }
-            });
-        }
-      });
-
+    await addDoc(collection(db, "users"), currentUser); 
+    alert('data added');
     console.log(currentUser);
   };
-
+ 
   return (
     <div>
       <h1 className="text-2xl font-serif font-bold text-center">
@@ -197,6 +182,7 @@ const GeneralMemberReg = () => {
                 <span class="text-gray-700">Your photo</span>
                 <input
                   required
+                  onChange={e=>handleFile(e)}
                   name="photo"
                   {...register("image", {
                     required: {
