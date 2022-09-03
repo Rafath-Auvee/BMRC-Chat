@@ -24,7 +24,12 @@ const Profile = () => {
     getDoc(doc(db, "users", auth.currentUser.uid)).then((docSnap) => {
       if (docSnap.exists) {
         setUser(docSnap.data());
-        console.log();
+// <<<<<<< HEAD
+//         console.log();
+// =======
+//         console.log(docSnap.data().image)
+        
+// >>>>>>> 22c385315127404dea237aea54000816a4988f73
       }
     });
 
@@ -96,9 +101,12 @@ const Profile = () => {
         <div className="text_container">
           <h3>{user.name}</h3>
           <p>{user.email}</p>
+          
+
           <hr />
           <small>Joined on: {user.createdAt.toDate().toDateString()}</small>
         </div>
+        <Link to="/gmdata">Update Profile</Link>
       </div>
     </section>
   ) : null;
