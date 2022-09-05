@@ -29,28 +29,34 @@ const SignIn = () => {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [place, setPlace] = useState("");
+  const [ip, setIp] = useState("");
 
   var api_key = "1457682e45754a919897779ad7ebeb78";
 
   var api_url = "https://api.opencagedata.com/geocode/v1/json";
 
   var request_url =
-  api_url +
-  "?" +
-  "key=" +
-  api_key +
-  "&q=" +
-  encodeURIComponent(latitude + "," + longitude) +
-  "&pretty=1" +
-  "&no_annotations=1";
+    api_url +
+    "?" +
+    "key=" +
+    api_key +
+    "&q=" +
+    encodeURIComponent(latitude + "," + longitude) +
+    "&pretty=1" +
+    "&no_annotations=1";
 
   fetch(request_url)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.results[0].formatted);
-        setPlace(data.results[0].formatted);
-      });
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.results[0].formatted);
+      setPlace(data.results[0].formatted);
+    });
 
+  fetch("https://api.db-ip.com/v2/free/self")
+    .then((res) => res.json())
+    .then((data) => {
+      setIp(data.ipAddress);
+    });
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       const lati = position.coords.latitude;
@@ -59,10 +65,7 @@ const SignIn = () => {
       setLongitude(long);
       // return lati, long
     });
-    
   }, []);
-
-
 
   useEffect(() => {
     if (user || gUser) {
@@ -71,6 +74,7 @@ const SignIn = () => {
         lat: latitude,
         long: longitude,
         location: place,
+        IP: ip,
       });
       navigate("/");
     }

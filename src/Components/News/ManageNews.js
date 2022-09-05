@@ -47,10 +47,10 @@ const ManageNews = () => {
     //     });
     };
     return (
-      <div class="overflow-x-auto lg:ml-10 lg:mr-10 min-h-screen">
-        <table class="table w-full">
+      <div className="overflow-x-auto lg:ml-10 lg:mr-10 min-h-screen">
+        <table className="table w-full">
           <thead>
-            <tr class="hover">
+            <tr className="hover">
               <th>Sl</th>
               <th>Name</th>
               <th>News</th>
@@ -60,24 +60,24 @@ const ManageNews = () => {
           <tbody>
             {tasks.map((task, index) => (
               
-                  <tr class="hover">
+                  <tr className="hover">
                     <th>{index + 1}</th>
                     <td>{task.name}</td>
                     <td >{task.news.slice(0,25)}...</td>
                     <td>
-                      <div class="btn-group">
+                      <div className="btn-group">
                         {" "}
                         
                         {user && (
                           <>
                             <button
-                              class="btn"
+                              className="btn"
                               onClick={() => navigateToUpdate(task._id)}
                             >
                               Update
                             </button>
                             <button
-                              class="btn"
+                              className="btn"
                               onClick={() => handleDelete(task._id)}
                             >
                               Delete
