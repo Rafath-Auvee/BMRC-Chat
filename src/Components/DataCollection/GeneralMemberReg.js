@@ -54,7 +54,6 @@ const GeneralMemberReg = () => {
       level: data?.level,
       term: data?.term,
       designation: "General Member",
-      // image:imageUrl
     };
 
     updateDoc(doc(db, "users", user.uid), currentUser);
