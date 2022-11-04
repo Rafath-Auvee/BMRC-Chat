@@ -20,39 +20,42 @@ import Footer from "./Components/Shared/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home></Home>} />
-        <Route
-          path="/room"
-          element={
-            <RequireAuth>
-              <Chatroom></Chatroom>
-            </RequireAuth>
-          }
-        />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<SignIn></SignIn>} />
-        <Route path="/signup" element={<SignUp></SignUp>} />
-        <Route path="/managenews" element={<ManageNews />} />
-        <Route path="/news" element={<NewsCard />} />
-        <Route path="/addnews" element={<Newsform />} />
-        <Route path="/data" element={<MemberReg />} />
-        <Route
-          path="/gmdata"
-          element={
-            <RequireAuth>
-              <GeneralMemberReg />
-            </RequireAuth>
-          }
-        />
+    <div>
+      <div className="App ">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home></Home>} />
+          <Route
+            path="/room"
+            element={
+              <RequireAuth>
+                <Chatroom></Chatroom>
+              </RequireAuth>
+            }
+          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<SignIn></SignIn>} />
+          <Route path="/signup" element={<SignUp></SignUp>} />
+          <Route path="/managenews" element={<ManageNews />} />
+          <Route path="/news" element={<NewsCard />} />
+          <Route path="/addnews" element={<Newsform />} />
+          <Route path="/data" element={<MemberReg />} />
+          <Route
+            path="/gmdata"
+            element={
+              <RequireAuth>
+                <GeneralMemberReg />
+              </RequireAuth>
+            }
+          />
 
-        <Route path="/newsdescription/:id" element={<NewsDescription />} />
-      </Routes>
-      <Footer />
-      {/* <Toaster position="top-right" reverseOrder={true} /> */}
-      <ToastContainer limit={5} />
+          <Route path="/newsdescription/:id" element={<NewsDescription />} />
+        </Routes>
+
+        {/* <Toaster position="top-right" reverseOrder={true} /> */}
+        <ToastContainer limit={5} />
+      </div>
+      {/* <Footer /> */}
     </div>
   );
 }
