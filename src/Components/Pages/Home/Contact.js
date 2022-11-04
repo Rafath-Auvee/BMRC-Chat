@@ -25,7 +25,7 @@ const Contact = () => {
   // };
 
   return (
-    <div className={`max-w-screen-md mx-auto p-5 mt-6 pt-6   `}>
+    <div className={`max-w-screen-md mx-auto px-[5%] py-[5%]    `}>
       <div className="divider text-black"></div>
       <div className="text-center mb-16">
         {/* <p className="mt-4 text-3xl md:text-5xl lg:text-7xl text-center leading-7 text-indigo-500 font-regular ">

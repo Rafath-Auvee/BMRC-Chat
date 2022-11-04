@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, storage } from "../../firebase.init.js";
-
+import logo from "../Assets/BMRClogo.png";
 import { updateDoc, doc } from "firebase/firestore";
 import { AuthContext } from "../Context/Auth.js";
 // import { useHistory } from "react-router-dom";
-
 
 // import logo from "../../image/logo.png";
 const Navbar = () => {
@@ -36,13 +35,11 @@ const Navbar = () => {
       {/* <li>
         <Link to="/gmdata">Update Profile</Link>
       </li> */}
-      {
-        user &&(
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-        )
-      }
+      {user && (
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
+      )}
       {!user && (
         <>
           <li>
@@ -73,14 +70,16 @@ const Navbar = () => {
           // <Link to="/signup">Sign Up</Link>
         )}
       </li>
-      {user && <>
+      {user && (
+        <>
           <li>
             <Link to="/managenews">Manage News</Link>
           </li>
           <li>
             <Link to="/addnews">Add News</Link>
           </li>
-          </>}
+        </>
+      )}
 
       {/* <button
         className="btn bg-neutral text-base-100 hover:text-neutral btn-ghost"
@@ -92,8 +91,8 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <div className="navbar">
+    <div className="">
+      <div className="navbar fixed z-[10000] bg-base-100 shadow-xl">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex="0" className="btn btn-ghost lg:hidden">
@@ -119,8 +118,8 @@ const Navbar = () => {
               {userMenu}
             </ul>
           </div>
-          {/* <img src={logo} alt="" /> */}
-          <p href="/" className="btn btn-ghost normal-case text-xl">
+          <img src={logo} className="w-[20px] mr-1" alt="" />
+          <p href="/" className="font-extrabold normal-case text-xl">
             BMRC
           </p>
         </div>
@@ -135,9 +134,9 @@ const Navbar = () => {
                 <div className="dropdown dropdown-end">
                   <label
                     tabIndex="0"
-                    className="btn btn-ghost btn-circle avatar"
+                    className="btn btn-ghost btn-sm btn-circle avatar"
                   >
-                    <div className="w-10 rounded-full">
+                    <div className="w-7 rounded-full">
                       {/* <img src={user?.photoURL} /> */}
                       {user?.photoURL ? (
                         <img src={user?.photoURL} />

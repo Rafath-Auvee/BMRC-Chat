@@ -16,6 +16,7 @@ import Newsform from "./Components/News/Newsform";
 import NewsDescription from "./Components/News/NewsDescription";
 import MemberReg from "./Components/DataCollection/MemberReg";
 import GeneralMemberReg from "./Components/DataCollection/GeneralMemberReg";
+import Footer from "./Components/Shared/Footer";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
 
         <Route path="/newsdescription/:id" element={<NewsDescription />} />
       </Routes>
+      <Footer />
       {/* <Toaster position="top-right" reverseOrder={true} /> */}
       <ToastContainer limit={5} />
     </div>

@@ -1,9 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Location from "../Location.js";
 import Contact from "./Contact.js";
 import EventSection from "./EventSection.js";
+import FaQs from "./FaQs.js";
 import HeroSection from "./HeroSection.js";
+import Mentors from "./Mentors.js";
+import News from "./News.js";
+import TopSlider from "./TopSlider.js";
 
 const Home = () => {
   const [latitude, setLatitude] = useState("");
@@ -65,10 +68,14 @@ const Home = () => {
   // https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=YOUR_API_KEY&signature=YOUR_SIGNATURE
 
   return (
-    <div>
-      <HeroSection/>
-      <EventSection/>
-      <Contact/>
+    <div className="pt-[6%]">
+      <TopSlider />
+      <HeroSection />
+      <Mentors />
+      <News />
+      <EventSection />
+      <FaQs />
+      <Contact />
     </div>
   );
 };
